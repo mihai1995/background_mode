@@ -25,8 +25,8 @@ android {
     namespace "com.meetecnologia.background_mode"
     compileSdkVersion 34
     defaultConfig {
-        targetSdkVersion 34
-        minSdkVersion 16
+        compileSdkVersion 34
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
