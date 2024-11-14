@@ -21,3 +21,4 @@ Stop background mode
 ```dart
  BackgroundMode.disable();
 ```
+# background_mode
