@@ -1,4 +1,4 @@
-group 'com.meetecnologia.background_mode'
+group 'com.meetecnologia.background_mode_new'
 version '1.0'
 
 buildscript {
