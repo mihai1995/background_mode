@@ -3,7 +3,7 @@
 # Run `pod lib lint background_mode.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'background_mode'
+  s.name             = 'background_mode_new'
   s.version          = '0.0.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC

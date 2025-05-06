@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:background_mode_new/background_mode.dart';
 import 'package:flutter/material.dart';
-import 'package:background_mode/background_mode.dart';
 
 void main() {
   runApp(MyApp());
