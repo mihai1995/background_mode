@@ -1,4 +1,4 @@
-package com.meetecnologia.background_mode;
+package com.meetecnologia.background_mode_new;
 
 import android.content.ComponentName;
 import android.content.ServiceConnection;

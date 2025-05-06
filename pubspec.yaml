@@ -19,7 +19,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.meetecnologia.background_mode_new
+        package: com.meetecnologia.background_mode_new_new
         pluginClass: BackgroundModePlugin
       ios:
         pluginClass: BackgroundModePlugin

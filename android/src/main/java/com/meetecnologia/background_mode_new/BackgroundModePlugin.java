@@ -1,4 +1,4 @@
-package com.meetecnologia.background_mode;
+package com.meetecnologia.background_mode_new;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

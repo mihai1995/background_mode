@@ -1,4 +1,4 @@
-package com.meetecnologia.background_mode;
+package com.meetecnologia.background_mode_new;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -24,12 +24,10 @@ public class ForegroundService extends Service {
     public static final int NOTIFICATION_ID = -574543954;
 
     // Default title of the background notification
-    private static final String NOTIFICATION_TITLE =
-            "App is running in background";
+    private static final String NOTIFICATION_TITLE = "App is running in background";
 
     // Default text of the background notification
-    private static final String NOTIFICATION_TEXT =
-            "Doing heavy tasks.";
+    private static final String NOTIFICATION_TEXT = "Doing heavy tasks.";
 
     // Binder given to clients
     private final IBinder binder = new ForegroundBinder();
@@ -46,7 +44,7 @@ public class ForegroundService extends Service {
     }
 
     /**
-     * Class used for the client Binder.  Because we know this service always
+     * Class used for the client Binder. Because we know this service always
      * runs in the same process as its clients, we don't need to deal with IPC.
      */
     class ForegroundBinder extends Binder {
@@ -155,18 +153,15 @@ public class ForegroundService extends Service {
         notification.setStyle(
                 new Notification.BigTextStyle().bigText(text));
 
-
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(
                 context, NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-
         notification.setContentIntent(contentIntent);
 
         return notification.build();
     }
-
 
     /**
      * Returns the shared notification service manager.
