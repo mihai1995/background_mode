@@ -34,7 +34,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.BIND_AUTO_CREATE;
@@ -59,11 +58,8 @@ public class BackgroundModePlugin implements FlutterPlugin, MethodCallHandler, A
     private boolean isBind = false;
     private PowerManager.WakeLock wakeLock;
 
-    public static void registerWith(Registrar registrar) {
-        BackgroundModePlugin instance = new BackgroundModePlugin();
-        instance.setActivity(registrar.activity());
-        instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-    }
+    // Remove the deprecated registerWith method
+    // The FlutterPlugin interface now handles registration
 
     public void onAttachedToEngine(Context context, BinaryMessenger messenger) {
         this.applicationContext = context;
@@ -87,8 +83,10 @@ public class BackgroundModePlugin implements FlutterPlugin, MethodCallHandler, A
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         if (call.method.equals("background_mode.bringToForeground")) {
-            Intent intent = applicationContext.getPackageManager().getLaunchIntentForPackage(applicationContext.getPackageName());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = applicationContext.getPackageManager()
+                    .getLaunchIntentForPackage(applicationContext.getPackageName());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             applicationContext.startActivity(intent);
             result.success(null);
         } else if (call.method.equals("background_mode.start")) {
@@ -143,12 +141,12 @@ public class BackgroundModePlugin implements FlutterPlugin, MethodCallHandler, A
     }
 
     @Override
-    public void onAttachedToEngine(FlutterPluginBinding binding) {
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
         onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
     }
 
     @Override
-    public void onAttachedToActivity(ActivityPluginBinding binding) {
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
         this.mainActivity = binding.getActivity();
     }
 
@@ -158,7 +156,7 @@ public class BackgroundModePlugin implements FlutterPlugin, MethodCallHandler, A
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
         this.mainActivity = binding.getActivity();
     }
 
@@ -182,8 +180,13 @@ public class BackgroundModePlugin implements FlutterPlugin, MethodCallHandler, A
     };
 
     private void clearKeyguardFlags(Context context) {
-        Window window = mainActivity.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        if (mainActivity != null) {
+            Window window = mainActivity.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                    WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
     }
 
     /**
