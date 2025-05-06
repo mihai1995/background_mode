@@ -3,7 +3,7 @@
 @implementation BackgroundModePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"background_mode"
+      methodChannelWithName:@"background_mode_new"
             binaryMessenger:[registrar messenger]];
   BackgroundModePlugin* instance = [[BackgroundModePlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
